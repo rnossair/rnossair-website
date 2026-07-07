@@ -68,7 +68,7 @@ export default function ProjectsSection() {
                   </h3>
                   <span
                     className="mono commit-range"
-                    style={{ fontSize: "0.75rem", color: "var(--moss)" }}
+                    style={{ fontSize: "0.75rem", color: "var(--moss-text)" }}
                   >
                     {project.commits.first.sha} → {project.commits.latest.sha}
                   </span>

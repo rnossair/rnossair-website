@@ -47,7 +47,7 @@ export default function ExperienceSection() {
                   className="mono"
                   style={{
                     fontSize: "0.78rem",
-                    color: "var(--moss)",
+                    color: "var(--moss-text)",
                     marginBottom: "0.4rem",
                   }}
                 >

@@ -23,7 +23,7 @@ export default function SkillsSection() {
             <div key={g.key}>
               <p
                 className="mono"
-                style={{ fontSize: "0.8rem", color: "var(--moss)", margin: "0 0 0.9rem" }}
+                style={{ fontSize: "0.8rem", color: "var(--moss-text)", margin: "0 0 0.9rem" }}
               >
                 {g.label}
               </p>

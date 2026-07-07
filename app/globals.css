@@ -5,6 +5,7 @@
   --navy-raised: #16232a;
   --paper: #eceae3;
   --moss: #5c7a5e;
+  --moss-text: #77a07a;
   --moss-dim: #33453c;
   --salmon: #e0a891;
   --ink: #eceae3;
@@ -73,7 +74,7 @@ img {
 .section-tag {
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: var(--moss);
+  color: var(--moss-text);
   letter-spacing: 0.02em;
   margin: 0 0 1.75rem;
   display: flex;

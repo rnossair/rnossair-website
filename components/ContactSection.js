@@ -33,7 +33,7 @@ export default function ContactSection() {
                 paddingBottom: "0.9rem",
               }}
             >
-              <dt className="mono" style={{ width: "6rem", color: "var(--moss)", fontSize: "0.85rem" }}>
+              <dt className="mono" style={{ width: "6rem", color: "var(--moss-text)", fontSize: "0.85rem" }}>
                 {l.label}
               </dt>
               <dd style={{ margin: 0 }}>
