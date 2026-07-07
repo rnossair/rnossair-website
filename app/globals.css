@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #111c22;
+  --navy-raised: #16232a;
+  --paper: #eceae3;
+  --moss: #5c7a5e;
+  --moss-dim: #33453c;
+  --salmon: #e0a891;
+  --ink: #eceae3;
+  --muted: #93a29a;
+
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--navy);
+}
+
+body {
+  margin: 0;
+  background: var(--navy);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  background: var(--moss);
+  color: var(--navy);
+}
+
+:focus-visible {
+  outline: 2px solid var(--salmon);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.shell {
+  width: min(100% - 2.5rem, 920px);
+  margin: 0 auto;
+}
+
+.section {
+  padding: 5rem 0;
+  border-top: 1px solid var(--moss-dim);
+}
+
+.section:first-of-type {
+  border-top: none;
+}
+
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--moss);
+  letter-spacing: 0.02em;
+  margin: 0 0 1.75rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.section-tag::before {
+  content: "§";
+  color: var(--moss-dim);
+}
+
+.section-heading {
+  font-family: var(--font-mono);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+  margin: 0 0 2.5rem;
+  color: var(--ink);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.link-underline {
+  text-decoration: underline;
+  text-decoration-color: var(--moss);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 150ms ease, color 150ms ease;
+}
+
+.link-underline:hover {
+  text-decoration-color: var(--salmon);
+}
+
+.hairline {
+  border: 1px solid var(--moss-dim);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: reveal 500ms ease both;
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 3.5rem 0;
+  }
+}
