@@ -11,8 +11,9 @@ export const profile = {
 
 export const about = {
   body: [
-    "I'm a computer science student at Grinnell College. Most of my work has been full-stack — React and Next.js front ends, Express and Postgres on the back, the usual shape of building products end to end.",
-    "That's shifted recently. At DXC I'm architecting a document platform where the hard part isn't CRUD, it's semantic search over unstructured documents and access control that has to be correct, not just present. I'm applying to bring that same systems thinking to agentic AI — models that call tools, hold state, and have to be trusted with more autonomy than a form submission.",
+    "I'm a computer science student at Grinnell College. Most of my work so far had been full-stack: React and Next.js front ends, Express and MongoDB on the back.",
+    "That's shifted recently. Lately I've been moving from systems that store and serve data to systems that reason, iterate, and act over it — models that call tools, hold state, and get trusted with significant autonomy.",
+    "Writing every line by hand isn't the job anymore. Planning the architecture and the spec is."
   ],
 };
 
