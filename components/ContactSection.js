@@ -1,47 +1,45 @@
 import { profile } from "@/data/site";
+import Row, { RowSpace } from "@/components/Row";
 
 const links = [
   { label: "email", href: `mailto:${profile.email}`, value: profile.email },
   { label: "github", href: profile.github, value: "github.com/rnossair" },
-  { label: "linkedin", href: profile.linkedin, value: "linkedin.com/in/rayane-nossair" },
-  { label: "resume", href: profile.resume, value: "download pdf" },
+  {
+    label: "linkedin",
+    href: profile.linkedin,
+    value: "linkedin.com/in/rayane-nossair",
+  },
+  { label: "resume", href: profile.resume, value: "download pdf", internal: true },
 ];
 
 export default function ContactSection() {
   return (
     <section id="contact" className="section">
-      <div className="shell">
-        <p className="section-tag">contact</p>
-        <h2 className="section-heading" style={{ marginBottom: "2rem" }}>
+      <Row>
+        <p className="section-label">contact</p>
+      </Row>
+
+      <RowSpace small />
+
+      <Row>
+        <h2 className="section-heading">
           Open to software engineering internships and collaborations.
         </h2>
-        <dl
-          style={{
-            margin: 0,
-            display: "grid",
-            gap: "0.9rem",
-          }}
-        >
+      </Row>
+
+      <RowSpace />
+
+      <Row>
+        <dl className="contact-list">
           {links.map((l) => (
-            <div
-              key={l.label}
-              style={{
-                display: "flex",
-                gap: "1.5rem",
-                alignItems: "baseline",
-                borderBottom: "1px solid var(--moss-dim)",
-                paddingBottom: "0.9rem",
-              }}
-            >
-              <dt className="mono" style={{ width: "6rem", color: "var(--moss-text)", fontSize: "0.85rem" }}>
-                {l.label}
-              </dt>
-              <dd style={{ margin: 0 }}>
+            <div key={l.label} className="contact-item">
+              <dt className="contact-key">{l.label}</dt>
+              <dd className="contact-val">
                 <a
                   href={l.href}
-                  target={l.label === "resume" ? undefined : "_blank"}
-                  rel="noreferrer"
-                  className="link-underline"
+                  className="link"
+                  target={l.internal ? undefined : "_blank"}
+                  rel={l.internal ? undefined : "noreferrer"}
                 >
                   {l.value}
                 </a>
@@ -49,7 +47,7 @@ export default function ContactSection() {
             </div>
           ))}
         </dl>
-      </div>
+      </Row>
     </section>
   );
 }

@@ -11,7 +11,8 @@ export default function HomePage() {
   return (
     <>
       <SiteHeader />
-      <main>
+      {/* .doc carries the spine and the line-number counter for the whole page */}
+      <main className="doc">
         <HeroSection />
         <AboutSection />
         <ExperienceSection />

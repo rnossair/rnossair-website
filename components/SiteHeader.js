@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { profile } from "@/data/site";
 
 const links = [
+  { href: "#about", label: "about" },
   { href: "#experience", label: "experience" },
   { href: "#projects", label: "projects" },
   { href: "#contact", label: "contact" },
@@ -9,52 +9,22 @@ const links = [
 
 export default function SiteHeader() {
   return (
-    <header
-      style={{
-        borderBottom: "1px solid var(--moss-dim)",
-        position: "sticky",
-        top: 0,
-        zIndex: 10,
-        background: "rgba(17, 28, 34, 0.92)",
-        backdropFilter: "blur(6px)",
-      }}
-    >
-      <div
-        className="shell"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "1.1rem 0",
-          gap: "1rem",
-          flexWrap: "wrap",
-        }}
-      >
-        <Link href="#top" className="mono" style={{ fontSize: "0.95rem", fontWeight: 500 }}>
-          rayane<span style={{ color: "var(--moss)" }}>.</span>nossair
-        </Link>
-        <nav
-          className="mono site-nav"
-          style={{ display: "flex", gap: "1.5rem", fontSize: "0.85rem" }}
-        >
+    <header className="masthead">
+      <div className="doc-w masthead-inner">
+        <a href="#top" className="masthead-mark">
+          rayane<span className="masthead-mark-dot">.</span>nossair
+        </a>
+        <nav className="masthead-nav" aria-label="Sections">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="link-underline">
+            <a key={l.href} href={l.href} className="link">
               {l.label}
             </a>
           ))}
-          <a href={profile.resume} className="link-underline" target="_blank" rel="noreferrer">
+          <a href={profile.resume} className="link" target="_blank" rel="noreferrer">
             resume
           </a>
         </nav>
       </div>
-      <style>{`
-        @media (max-width: 360px) {
-          .site-nav {
-            gap: 1rem !important;
-            font-size: 0.78rem !important;
-          }
-        }
-      `}</style>
     </header>
   );
 }

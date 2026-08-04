@@ -1,18 +1,25 @@
 @import "tailwindcss";
 
-:root {
-  --navy: #111c22;
-  --navy-raised: #16232a;
-  --paper: #eceae3;
-  --moss: #5c7a5e;
-  --moss-text: #77a07a;
-  --moss-dim: #33453c;
-  --salmon: #e0a891;
-  --ink: #eceae3;
-  --muted: #93a29a;
+/* ==========================================================================
+   rnossair.dev — "the diff"
+   Deletions are quiet, not red. Additions are amber, not green.
+   The past wasn't a failure; it was the foundation.
+   ========================================================================== */
 
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
-  --font-sans: "IBM Plex Sans", ui-sans-serif, sans-serif;
+:root {
+  --ground: #15121d;
+  --ground-lift: #1d1929;
+  --ink: #edeaf3;
+  --muted: #8e88a4;
+  --added: #e8a33d;
+  --rule: #2b2638;
+
+  --added-wash: rgba(232, 163, 61, 0.055);
+  --added-dim: rgba(232, 163, 61, 0.45);
+  --faint: #4a4560;
+
+  --gutter: 4.25rem;
+  --body-pad: 1.5rem;
 }
 
 * {
@@ -20,17 +27,25 @@
 }
 
 html {
-  background: var(--navy);
+  background: var(--ground);
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
   margin: 0;
-  background: var(--navy);
+  background: var(--ground);
   color: var(--ink);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.6;
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -43,88 +58,603 @@ img {
 }
 
 ::selection {
-  background: var(--moss);
-  color: var(--navy);
+  background: var(--added);
+  color: var(--ground);
 }
 
 :focus-visible {
-  outline: 2px solid var(--salmon);
+  outline: 2px solid var(--added);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 1px;
 }
 
-.mono {
-  font-family: var(--font-mono);
-}
+/* --------------------------------------------------------------------------
+   Document shell + the spine
+   -------------------------------------------------------------------------- */
 
-.shell {
-  width: min(100% - 2.5rem, 920px);
+.doc-w {
+  width: min(100% - 2.5rem, 1040px);
   margin: 0 auto;
 }
 
-.section {
-  padding: 5rem 0;
-  border-top: 1px solid var(--moss-dim);
+.doc {
+  position: relative;
+  width: min(100% - 2.5rem, 1040px);
+  margin: 0 auto;
+  counter-reset: ln;
 }
 
-.section:first-of-type {
-  border-top: none;
+.doc::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--gutter);
+  width: 1px;
+  background: var(--rule);
 }
 
-.section-tag {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--moss-text);
-  letter-spacing: 0.02em;
-  margin: 0 0 1.75rem;
+/* The gutter/body primitive. Every block of the document is a row. */
+.row {
+  display: grid;
+  grid-template-columns: var(--gutter) 1fr;
+  counter-increment: ln;
+}
+
+.row-gutter {
   display: flex;
+  justify-content: flex-end;
   align-items: baseline;
-  gap: 0.6rem;
+  gap: 0.5rem;
+  padding-right: 0.6rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: -0.02em;
+  color: var(--faint);
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-.section-tag::before {
-  content: "§";
-  color: var(--moss-dim);
+.row-gutter::before {
+  content: counter(ln);
+}
+
+.row-gutter-mark {
+  width: 0.5rem;
+  text-align: center;
+}
+
+.row-body {
+  padding-left: var(--body-pad);
+  min-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Sections — the hairline crosses the spine, like a hunk separator
+   -------------------------------------------------------------------------- */
+
+.section {
+  border-top: 1px solid var(--rule);
+  padding-block: 5.5rem;
+}
+
+.section-first {
+  border-top: none;
+  padding-block: 4rem 5.5rem;
+}
+
+.section-label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: var(--added);
+  margin: 0;
 }
 
 .section-heading {
-  font-family: var(--font-mono);
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  font-weight: 500;
-  margin: 0 0 2.5rem;
+  font-family: var(--font-display), ui-sans-serif, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+  margin: 0;
   color: var(--ink);
 }
 
-.muted {
+.row-space {
+  height: 2.25rem;
+}
+
+.row-space-sm {
+  height: 1.1rem;
+}
+
+/* --------------------------------------------------------------------------
+   Links
+   -------------------------------------------------------------------------- */
+
+.link {
+  text-decoration: underline;
+  text-decoration-color: var(--faint);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: text-decoration-color 160ms ease, color 160ms ease;
+}
+
+.link:hover {
+  color: var(--added);
+  text-decoration-color: var(--added);
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--ground) 90%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.masthead-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-block: 1rem;
+  /* Align the mark to the body column so the page has one left edge */
+  padding-left: calc(var(--gutter) + var(--body-pad));
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.8rem;
+  letter-spacing: -0.03em;
+}
+
+.masthead-mark {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.masthead-mark-dot {
+  color: var(--added);
+}
+
+.masthead-nav {
+  display: flex;
+  gap: 1.4rem;
+  color: var(--muted);
+  /* Wrap rather than push past the viewport on narrow screens */
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* --------------------------------------------------------------------------
+   Hero — the signature
+   -------------------------------------------------------------------------- */
+
+.hero-name {
+  font-family: var(--font-display), ui-sans-serif, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.038em;
+  line-height: 0.94;
+  font-size: clamp(2.6rem, 8vw, 4.75rem);
+  margin: 0;
+  color: var(--ink);
+}
+
+.hero-hunk {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: clamp(0.7rem, 1.6vw, 0.8rem);
+  letter-spacing: -0.03em;
   color: var(--muted);
 }
 
-.link-underline {
-  text-decoration: underline;
-  text-decoration-color: var(--moss);
-  text-underline-offset: 0.2em;
+.hero-hunk-at {
+  color: var(--added);
+}
+
+.diff-line {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: clamp(0.9rem, 2.3vw, 1.28rem);
+  letter-spacing: -0.04em;
+  line-height: 1.5;
+  padding-block: 0.28rem;
+  margin: 0;
+}
+
+.row-del .diff-line {
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--faint);
   text-decoration-thickness: 1px;
-  transition: text-decoration-color 150ms ease, color 150ms ease;
 }
 
-.link-underline:hover {
-  text-decoration-color: var(--salmon);
+.row-add .diff-line {
+  color: var(--added);
+  font-weight: 500;
 }
 
-.hairline {
-  border: 1px solid var(--moss-dim);
+.row-add .row-body {
+  background: var(--added-wash);
+  box-shadow: inset 1px 0 0 var(--added-dim);
 }
+
+.row-add .row-gutter {
+  color: var(--added-dim);
+}
+
+.hero-links {
+  display: flex;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.8rem;
+  letter-spacing: -0.03em;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   About
+   -------------------------------------------------------------------------- */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.about-photo {
+  width: 6.5rem;
+  height: 6.5rem;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  filter: grayscale(0.2) contrast(1.02);
+}
+
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prose {
+  max-width: 60ch;
+}
+
+.prose p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.prose p + p {
+  margin-top: 1rem;
+}
+
+.pull {
+  font-family: var(--font-display), ui-sans-serif, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.15;
+  font-size: clamp(1.4rem, 3.4vw, 2.15rem);
+  color: var(--ink);
+  margin: 0;
+  max-width: 30ch;
+}
+
+/* Two sentences, two lines: the turn between them is the whole point */
+.pull-line,
+.pull em {
+  display: block;
+}
+
+.pull em {
+  font-style: normal;
+  color: var(--added);
+}
+
+/* --------------------------------------------------------------------------
+   Experience
+   -------------------------------------------------------------------------- */
+
+.job-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.job-list > li + li {
+  margin-top: 2.5rem;
+}
+
+.job-dates {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: -0.02em;
+  color: var(--added);
+  margin: 0 0 0.5rem;
+}
+
+.job-role {
+  font-family: var(--font-display), ui-sans-serif, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: 1.2rem;
+  line-height: 1.25;
+  margin: 0 0 0.15rem;
+  color: var(--ink);
+}
+
+.job-meta {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: -0.02em;
+  color: var(--muted);
+  margin: 0 0 0.9rem;
+}
+
+.job-bullets {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 62ch;
+}
+
+.job-bullets > li {
+  position: relative;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.job-bullets > li + li {
+  margin-top: 0.5rem;
+}
+
+.job-bullets > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 0.45rem;
+  height: 1px;
+  background: var(--faint);
+}
+
+/* --------------------------------------------------------------------------
+   Projects
+   -------------------------------------------------------------------------- */
+
+.proj-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.proj-list > li + li {
+  margin-top: 4.5rem;
+}
+
+/* A thumbnail, not a hero image: capped well short of the body column so the
+   project name stays the entry point. Captures are 16:9, so no cropping. */
+.proj-shot {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  max-width: 30rem;
+  background: var(--ground-lift);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.proj-shot img {
+  object-fit: cover;
+}
+
+.proj-name {
+  font-family: var(--font-display), ui-sans-serif, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin: 0 0 0.6rem;
+  color: var(--ink);
+}
+
+.proj-desc {
+  margin: 0 0 1.3rem;
+  color: var(--muted);
+  max-width: 60ch;
+}
+
+.proj-stack {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: -0.02em;
+  color: var(--muted);
+  margin: 0 0 1.6rem;
+}
+
+.proj-stack-sep {
+  color: var(--faint);
+  padding-inline: 0.5rem;
+}
+
+/* The commit ruler — his own data, finally given weight */
+.ruler {
+  margin: 0 0 1.5rem;
+  max-width: 34rem;
+}
+
+.ruler-shas {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.ruler-span {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+  position: relative;
+}
+
+.ruler-span::before,
+.ruler-span::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  width: 1px;
+  height: 7px;
+  background: var(--added-dim);
+}
+
+.ruler-span::before {
+  left: 0;
+}
+
+.ruler-span::after {
+  right: 0;
+}
+
+.ruler-dates {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: -0.02em;
+  color: var(--muted);
+  margin-top: 0.4rem;
+}
+
+.proj-links {
+  display: flex;
+  gap: 1.4rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+  letter-spacing: -0.03em;
+}
+
+.proj-link-live {
+  color: var(--added);
+}
+
+.proj-link-live:hover {
+  color: var(--ink);
+}
+
+/* --------------------------------------------------------------------------
+   Skills
+   -------------------------------------------------------------------------- */
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.skills-label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: var(--added);
+  margin: 0 0 0.9rem;
+}
+
+.skills-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.skills-list > li + li {
+  margin-top: 0.4rem;
+}
+
+/* --------------------------------------------------------------------------
+   Contact
+   -------------------------------------------------------------------------- */
+
+.contact-list {
+  margin: 0;
+  display: grid;
+}
+
+.contact-item {
+  display: flex;
+  gap: 1.5rem;
+  align-items: baseline;
+  border-bottom: 1px solid var(--rule);
+  padding-block: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.contact-key {
+  width: 5.5rem;
+  flex-shrink: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+.contact-val {
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.colophon {
+  border-top: 1px solid var(--rule);
+}
+
+.colophon-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding-block: 1.5rem;
+  padding-left: calc(var(--gutter) + var(--body-pad));
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: -0.02em;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   Motion — one orchestrated moment, on load, in the hero only
+   -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: no-preference) {
-  .reveal {
-    animation: reveal 500ms ease both;
+  .stage {
+    opacity: 0;
+    animation: stage-in 520ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  .stage-strike .diff-line {
+    text-decoration-color: transparent;
+    animation: strike-in 400ms ease both;
+    animation-delay: calc(var(--i, 0) * 90ms + 260ms);
   }
 }
 
-@keyframes reveal {
+@keyframes stage-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -132,8 +662,70 @@ img {
   }
 }
 
+@keyframes strike-in {
+  from {
+    text-decoration-color: transparent;
+  }
+  to {
+    text-decoration-color: var(--faint);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Responsive — the gutter narrows to markers only; numbers step aside
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  :root {
+    --gutter: 1.75rem;
+    --body-pad: 1rem;
+  }
+
+  .row-gutter::before {
+    content: none;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .about-photo {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
 @media (max-width: 640px) {
+  /* Reclaim the alignment indent for the nav; fitting beats aligning here */
+  .masthead-inner {
+    padding-left: 0;
+  }
+
   .section {
-    padding: 3.5rem 0;
+    padding-block: 3.75rem;
+  }
+
+  .section-first {
+    padding-block: 2.5rem 3.75rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .proj-list > li + li {
+    margin-top: 3rem;
+  }
+}
+
+@media (max-width: 460px) {
+  .masthead-nav {
+    gap: 0.75rem;
+    font-size: 0.68rem;
+  }
+
+  .ruler-shas {
+    font-size: 0.7rem;
   }
 }

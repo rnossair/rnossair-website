@@ -1,16 +1,22 @@
-import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import { Bricolage_Grotesque, Martian_Mono, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-mono",
+const display = Bricolage_Grotesque({
+  variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
-const plexSans = IBM_Plex_Sans({
-  variable: "--font-sans",
+const mono = Martian_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const body = Instrument_Sans({
+  variable: "--font-body",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata = {
@@ -22,7 +28,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${plexMono.variable} ${plexSans.variable}`}>
+    <html
+      lang="en"
+      className={`${display.variable} ${mono.variable} ${body.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

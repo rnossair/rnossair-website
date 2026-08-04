@@ -9,11 +9,30 @@ export const profile = {
   photo: "/images/pfp.png",
 };
 
+// The hero diff. Removed lines are what the work used to be; added lines are
+// what it is now. Counts in the hunk header match the line counts below.
+export const trajectory = {
+  from: 2022,
+  to: 2026,
+  path: "rayane-nossair/trajectory",
+  removed: [
+    "full-stack builder",
+    "React front ends, Express and Mongo behind them",
+    "writes every line by hand",
+  ],
+  added: [
+    "Applied AI Engineer",
+    "architects systems that reason, iterate, and act",
+    "RAG Pipelines, Agent Loops",
+    "MCP Integrations and Tool Calling",
+  ],
+};
+
 export const about = {
+  pull: ["Writing every line by hand isn't the job anymore.", "Planning the architecture and the spec is."],
   body: [
     "I'm a computer science student at Grinnell College. Most of my work so far had been full-stack: React and Next.js front ends, Express and MongoDB on the back.",
-    "That's shifted recently. Lately I've been moving from systems that store and serve data to systems that reason, iterate, and act over it — models that call tools, hold state, and get trusted with significant autonomy.",
-    "Writing every line by hand isn't the job anymore. Planning the architecture and the spec is."
+    "That's shifted recently. Lately I've been moving from systems that store and serve data to systems that reason, iterate, and act over it — models that call tools, hold state, and get trusted with significant autonomy."
   ],
 };
 
@@ -59,20 +78,6 @@ export const experience = [
 
 export const projects = [
   {
-    slug: "unipass",
-    name: "UniPass",
-    description:
-      "A password manager built on the MERN stack. Vaults are encrypted client-side with AES-256 before they ever reach the database, and unlocked with a single master password.",
-    stack: ["React", "Express", "MongoDB", "Node.js", "AES-256"],
-    live: "https://unipassv2.vercel.app/",
-    repo: "https://github.com/rnossair/UniPass-Password-Manager",
-    screenshot: "/images/projects/unipass.png",
-    commits: {
-      first: { sha: "2cfaf69", date: "2022-08-07" },
-      latest: { sha: "a79f7de", date: "2024-09-11" },
-    },
-  },
-  {
     slug: "squire",
     name: "Squire",
     description:
@@ -84,6 +89,20 @@ export const projects = [
     commits: {
       first: { sha: "834394b", date: "2025-11-08" },
       latest: { sha: "dbcd4cf", date: "2025-11-09" },
+    },
+  },
+  {
+    slug: "unipass",
+    name: "UniPass",
+    description:
+      "A password manager built on the MERN stack. Vaults are encrypted client-side with AES-256 before they ever reach the database, and unlocked with a single master password.",
+    stack: ["React", "Express", "MongoDB", "Node.js", "AES-256"],
+    live: "https://unipassv2.vercel.app/",
+    repo: "https://github.com/rnossair/UniPass-Password-Manager",
+    screenshot: "/images/projects/unipass.png",
+    commits: {
+      first: { sha: "2cfaf69", date: "2022-08-07" },
+      latest: { sha: "a79f7de", date: "2024-09-11" },
     },
   },
 ];

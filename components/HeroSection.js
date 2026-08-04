@@ -1,48 +1,63 @@
-import { profile } from "@/data/site";
+import { profile, trajectory } from "@/data/site";
+import Row, { RowSpace } from "@/components/Row";
 
 export default function HeroSection() {
+  const { from, to, path, removed, added } = trajectory;
+
+  // Stagger index runs continuously through the diff so the load reads as one
+  // sequence: the old lines strike out, then the new ones arrive.
+  let step = 0;
+
   return (
-    <section id="top" className="section reveal" style={{ paddingTop: "3.5rem" }}>
-      <div className="shell">
-        <p className="mono section-tag" style={{ marginBottom: "1rem" }}>
-          rnossair.dev
+    <section id="top" className="section section-first">
+      <Row className="stage" style={{ "--i": step++ }}>
+        <h1 className="hero-name">{profile.name}</h1>
+      </Row>
+
+      <RowSpace />
+
+      <Row className="stage" style={{ "--i": step++ }}>
+        <p className="hero-hunk">
+          <span className="hero-hunk-at">@@</span> -{from},{removed.length} +{to},
+          {added.length} <span className="hero-hunk-at">@@</span> {path}
         </p>
-        <h1
-          className="mono"
-          style={{
-            fontSize: "clamp(2.2rem, 6vw, 3.6rem)",
-            lineHeight: 1.08,
-            fontWeight: 500,
-            margin: "0 0 1.5rem",
-            maxWidth: "18ch",
-          }}
+      </Row>
+
+      <RowSpace small />
+
+      {removed.map((line) => (
+        <Row
+          key={line}
+          variant="del"
+          mark="-"
+          className="stage stage-strike"
+          style={{ "--i": step++ }}
         >
-          {profile.name}
-        </h1>
-        <p
-          style={{
-            fontSize: "clamp(1.05rem, 2vw, 1.3rem)",
-            maxWidth: "38ch",
-            color: "var(--muted)",
-            margin: "0 0 2rem",
-            lineHeight: 1.5,
-          }}
-        >
-          Full-stack builder moving into{" "}
-          <span style={{ color: "var(--salmon)" }}>agentic AI systems</span>.
-        </p>
-        <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }} className="mono">
-          <a href={profile.github} target="_blank" rel="noreferrer" className="link-underline">
-            github
-          </a>
-          <a href={profile.linkedin} target="_blank" rel="noreferrer" className="link-underline">
-            linkedin
-          </a>
-          <a href={`mailto:${profile.email}`} className="link-underline">
+          <p className="diff-line">{line}</p>
+        </Row>
+      ))}
+
+      {added.map((line) => (
+        <Row key={line} variant="add" mark="+" className="stage" style={{ "--i": step++ }}>
+          <p className="diff-line">{line}</p>
+        </Row>
+      ))}
+
+      <RowSpace />
+
+      <Row className="stage" style={{ "--i": step++ }}>
+        <div className="hero-links">
+          <a href={`mailto:${profile.email}`} className="link">
             {profile.email}
           </a>
+          <a href={profile.github} className="link" target="_blank" rel="noreferrer">
+            github
+          </a>
+          <a href={profile.linkedin} className="link" target="_blank" rel="noreferrer">
+            linkedin
+          </a>
         </div>
-      </div>
+      </Row>
     </section>
   );
 }
