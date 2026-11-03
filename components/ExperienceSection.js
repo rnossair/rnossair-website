@@ -1,5 +1,6 @@
 import { experience } from "@/data/site";
 import Row, { RowSpace } from "@/components/Row";
+import Stagger, { StaggerItem } from "@/components/motion/Stagger";
 
 const MONTHS = [
   "jan", "feb", "mar", "apr", "may", "jun",
@@ -14,9 +15,9 @@ function formatDate(iso) {
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="section">
+    <Stagger as="section" id="experience" className="section">
       <Row>
-        <p className="section-label">experience</p>
+        <StaggerItem as="p" className="section-label">experience</StaggerItem>
       </Row>
 
       <RowSpace small />
@@ -25,21 +26,23 @@ export default function ExperienceSection() {
       <ol className="job-list">
         {experience.map((job) => (
           <Row as="li" key={`${job.role}-${job.org}`}>
-            <p className="job-dates">
-              {formatDate(job.start)} → {formatDate(job.end)}
-            </p>
-            <h3 className="job-role">{job.role}</h3>
-            <p className="job-meta">
-              {job.org} · {job.location}
-            </p>
-            <ul className="job-bullets">
-              {job.bullets.map((b) => (
-                <li key={b.slice(0, 24)}>{b}</li>
-              ))}
-            </ul>
+            <StaggerItem>
+              <p className="job-dates">
+                {formatDate(job.start)} → {formatDate(job.end)}
+              </p>
+              <h3 className="job-role">{job.role}</h3>
+              <p className="job-meta">
+                {job.org} · {job.location}
+              </p>
+              <ul className="job-bullets">
+                {job.bullets.map((b) => (
+                  <li key={b.slice(0, 24)}>{b}</li>
+                ))}
+              </ul>
+            </StaggerItem>
           </Row>
         ))}
       </ol>
-    </section>
+    </Stagger>
   );
 }

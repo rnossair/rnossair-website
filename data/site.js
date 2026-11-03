@@ -6,7 +6,7 @@ export const profile = {
   github: "https://github.com/rnossair",
   linkedin: "https://www.linkedin.com/in/rayane-nossair/",
   resume: "/docs/resume.pdf",
-  photo: "/images/pfp.png",
+  photo: null, // hidden for now; "/images/pfp.png" restores it
 };
 
 // The hero diff. Removed lines are what the work used to be; added lines are
@@ -104,6 +104,69 @@ export const projects = [
       first: { sha: "2cfaf69", date: "2022-08-07" },
       latest: { sha: "a79f7de", date: "2024-09-11" },
     },
+  },
+  {
+    slug: "hiway",
+    name: "HiWay",
+    description:
+      "A team build at MHacks 26. A phone on the dash scores driver drowsiness in real time, warns by voice, and runs a group-chat agent over iMessage and Telegram that keeps the driver's friends and family in the loop. I built the backend and the server-side risk scoring.",
+    stack: ["TypeScript", "ElevenLabs", "Photon", "Presage", "Tiger Data"],
+    live: null,
+    repo: "https://github.com/Dunni14/hi-way67",
+    screenshot: "/images/projects/hiway.png",
+    commits: {
+      first: { sha: "ba72547", date: "2026-10-03" },
+      latest: { sha: "cecad63", date: "2026-10-04" },
+    },
+  },
+  {
+    slug: "alia",
+    name: "A.L.I.A.",
+    description:
+      "A persona-driven Discord agent that reads every message and decides for itself whether to reply. A router picks silence, a normal reply, RAG memory recall, or a quote card, and web search comes in as an MCP tool.",
+    stack: ["TypeScript", "discord.js", "pgvector", "Groq / Ollama", "MCP"],
+    live: null,
+    repo: "https://github.com/rnossair/alia-discord-bot",
+    screenshot: "/images/projects/alia.png",
+    commits: {
+      first: { sha: "d20727e", date: "2026-07-07" },
+      latest: { sha: "79006e9", date: "2026-07-08" },
+    },
+  },
+  {
+    slug: "provenance-guard",
+    name: "Provenance Guard",
+    description:
+      "An API that estimates whether text was AI-generated from GPT-2 perplexity and sentence-length burstiness, then returns a calibrated confidence label. Every call is audit-logged, and writers can appeal a classification.",
+    stack: ["Python", "Flask", "Transformers", "GPT-2", "NLTK"],
+    live: null,
+    repo: "https://github.com/rnossair/ai201-project4-provenance-guard",
+    screenshot: "/images/projects/provenance-guard.png",
+    commits: {
+      first: { sha: "871b7a6", date: "2026-06-29" },
+      latest: { sha: "dc07b74", date: "2026-06-30" },
+    },
+  },
+];
+
+// Open-source contributions. The section is marked under construction until a
+// contribution outside coursework lands; `coursework: true` labels the rest.
+export const contributions = [
+  {
+    title: "fix(agent): skip root-relative vendored and build paths in tech detector",
+    repo: "codepath/pathreview-ai301-fa26-s1",
+    url: "https://github.com/codepath/pathreview-ai301-fa26-s1/pull/246",
+    opened: "2026-11-01",
+    status: "open",
+    coursework: true,
+  },
+  {
+    title: "Fix ReviewService tests failing (#158)",
+    repo: "ascherj/pathreview",
+    url: "https://github.com/ascherj/pathreview/pull/555",
+    opened: "2026-08-02",
+    status: "open",
+    coursework: true,
   },
 ];
 

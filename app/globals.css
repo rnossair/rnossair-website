@@ -7,16 +7,17 @@
    ========================================================================== */
 
 :root {
-  --ground: #15121d;
-  --ground-lift: #1d1929;
-  --ink: #edeaf3;
-  --muted: #8e88a4;
+  /* Warm graphite: neutrals carry no hue of their own, so amber is the only color */
+  --ground: #131210;
+  --ground-lift: #1b1a17;
+  --ink: #ece9e2;
+  --muted: #9a958a;
   --added: #e8a33d;
-  --rule: #2b2638;
+  --rule: #2a2824;
 
   --added-wash: rgba(232, 163, 61, 0.055);
   --added-dim: rgba(232, 163, 61, 0.45);
-  --faint: #4a4560;
+  --faint: #4d4a43;
 
   --gutter: 4.25rem;
   --body-pad: 1.5rem;
@@ -268,7 +269,12 @@ img {
 .row-del .diff-line {
   color: var(--muted);
   text-decoration: line-through;
-  text-decoration-color: var(--faint);
+  /* --strike (0 to 1) is animated by Motion on load; defaults to fully drawn */
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--faint) calc(var(--strike, 1) * 100%),
+    transparent
+  );
   text-decoration-thickness: 1px;
 }
 
@@ -428,31 +434,79 @@ img {
    Projects
    -------------------------------------------------------------------------- */
 
-.proj-list {
+.proj-strip {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 0 -0.35rem;
+  /* Side padding keeps focus outlines on edge links from being clipped */
+  padding: 0.35rem 0.35rem 1.25rem;
+  display: grid;
+  grid-auto-flow: column;
+  /* Two cards per view; more scroll sideways and snap to a card edge */
+  grid-auto-columns: calc((100% - 2.5rem) / 2);
+  gap: 2.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 0.35rem;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--faint) transparent;
 }
 
-.proj-list > li + li {
-  margin-top: 4.5rem;
+.proj-card {
+  scroll-snap-align: start;
+  min-width: 0;
 }
 
-/* A thumbnail, not a hero image: capped well short of the body column so the
-   project name stays the entry point. Captures are 16:9, so no cropping. */
+/* Captures are 16:9, so no cropping */
 .proj-shot {
   position: relative;
   aspect-ratio: 16 / 9;
   width: 100%;
-  max-width: 30rem;
   background: var(--ground-lift);
   border: 1px solid var(--rule);
   overflow: hidden;
   margin-bottom: 1.5rem;
+  transition: border-color 300ms ease;
 }
 
 .proj-shot img {
   object-fit: cover;
+}
+
+.proj-card:hover .proj-shot {
+  border-color: var(--added-dim);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .proj-shot img {
+    transition: transform 500ms cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+
+  .proj-card:hover .proj-shot img {
+    transform: scale(1.03);
+  }
+}
+
+.proj-shot-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1rem;
+  text-align: center;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+  letter-spacing: -0.02em;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.proj-shot-empty-note {
+  font-size: 0.68rem;
+  color: var(--faint);
 }
 
 .proj-name {
@@ -552,6 +606,63 @@ img {
 }
 
 /* --------------------------------------------------------------------------
+   Contributions (under construction)
+   -------------------------------------------------------------------------- */
+
+.wip-tag {
+  margin-left: 0.6rem;
+  padding: 0.1rem 0.45rem;
+  border: 1px dashed var(--added-dim);
+  color: var(--muted);
+}
+
+.wip-note {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.pr-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pr-list > li + li {
+  margin-top: 1.25rem;
+}
+
+.pr-meta {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: -0.02em;
+  color: var(--muted);
+  margin: 0 0 0.3rem;
+}
+
+.pr-tag {
+  margin-left: 0.6rem;
+  color: var(--faint);
+}
+
+.pr-tag::before {
+  content: "[";
+}
+
+.pr-tag::after {
+  content: "]";
+}
+
+.pr-title {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.85rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+/* --------------------------------------------------------------------------
    Skills
    -------------------------------------------------------------------------- */
 
@@ -634,44 +745,6 @@ img {
 }
 
 /* --------------------------------------------------------------------------
-   Motion — one orchestrated moment, on load, in the hero only
-   -------------------------------------------------------------------------- */
-
-@media (prefers-reduced-motion: no-preference) {
-  .stage {
-    opacity: 0;
-    animation: stage-in 520ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
-    animation-delay: calc(var(--i, 0) * 90ms);
-  }
-
-  .stage-strike .diff-line {
-    text-decoration-color: transparent;
-    animation: strike-in 400ms ease both;
-    animation-delay: calc(var(--i, 0) * 90ms + 260ms);
-  }
-}
-
-@keyframes stage-in {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes strike-in {
-  from {
-    text-decoration-color: transparent;
-  }
-  to {
-    text-decoration-color: var(--faint);
-  }
-}
-
-/* --------------------------------------------------------------------------
    Responsive — the gutter narrows to markers only; numbers step aside
    -------------------------------------------------------------------------- */
 
@@ -714,8 +787,10 @@ img {
     grid-template-columns: 1fr 1fr;
   }
 
-  .proj-list > li + li {
-    margin-top: 3rem;
+  /* Next card peeks in so the strip reads as scrollable */
+  .proj-strip {
+    grid-auto-columns: 85%;
+    gap: 1.5rem;
   }
 }
 

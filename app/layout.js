@@ -1,4 +1,5 @@
 import { Bricolage_Grotesque, Martian_Mono, Instrument_Sans } from "next/font/google";
+import MotionProvider from "@/components/motion/MotionProvider";
 import "./globals.css";
 
 const display = Bricolage_Grotesque({
@@ -32,7 +33,9 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${display.variable} ${mono.variable} ${body.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <MotionProvider>{children}</MotionProvider>
+      </body>
     </html>
   );
 }
