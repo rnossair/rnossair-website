@@ -15,11 +15,13 @@ export default function Stagger({
   gap = stagger,
   className,
   children,
+  ...rest
 }) {
   const Tag = m[as];
   const play = trigger === "mount" ? { animate: "show" } : { whileInView: "show", viewport };
   return (
     <Tag
+      {...rest}
       className={className}
       initial="hidden"
       {...play}

@@ -1,22 +1,23 @@
 import { profile, trajectory } from "@/data/site";
 import Row, { RowSpace } from "@/components/Row";
+import Stagger, { StaggerItem } from "@/components/motion/Stagger";
+import { strikeRow, strikeText } from "@/components/motion/tokens";
 
 export default function HeroSection() {
   const { from, to, path, removed, added } = trajectory;
 
-  // Stagger index runs continuously through the diff so the load reads as one
-  // sequence: the old lines strike out, then the new ones arrive.
-  let step = 0;
-
+  // One sequence on load: the old lines arrive and strike out, then the new
+  // ones arrive. Unlike other sections, the hero animates whole rows (gutter
+  // mark and amber wash included), because each diff line landing is the moment.
   return (
-    <section id="top" className="section section-first">
-      <Row className="stage" style={{ "--i": step++ }}>
+    <Stagger as="section" trigger="mount" id="top" className="section section-first">
+      <Row as={StaggerItem}>
         <h1 className="hero-name">{profile.name}</h1>
       </Row>
 
       <RowSpace />
 
-      <Row className="stage" style={{ "--i": step++ }}>
+      <Row as={StaggerItem}>
         <p className="hero-hunk">
           <span className="hero-hunk-at">@@</span> -{from},{removed.length} +{to},
           {added.length} <span className="hero-hunk-at">@@</span> {path}
@@ -26,26 +27,22 @@ export default function HeroSection() {
       <RowSpace small />
 
       {removed.map((line) => (
-        <Row
-          key={line}
-          variant="del"
-          mark="-"
-          className="stage stage-strike"
-          style={{ "--i": step++ }}
-        >
-          <p className="diff-line">{line}</p>
+        <Row key={line} as={StaggerItem} variants={strikeRow} variant="del" mark="-">
+          <StaggerItem as="p" variants={strikeText} className="diff-line">
+            {line}
+          </StaggerItem>
         </Row>
       ))}
 
       {added.map((line) => (
-        <Row key={line} variant="add" mark="+" className="stage" style={{ "--i": step++ }}>
+        <Row key={line} as={StaggerItem} variant="add" mark="+">
           <p className="diff-line">{line}</p>
         </Row>
       ))}
 
       <RowSpace />
 
-      <Row className="stage" style={{ "--i": step++ }}>
+      <Row as={StaggerItem}>
         <div className="hero-links">
           <a href={`mailto:${profile.email}`} className="link">
             {profile.email}
@@ -58,6 +55,6 @@ export default function HeroSection() {
           </a>
         </div>
       </Row>
-    </section>
+    </Stagger>
   );
 }
