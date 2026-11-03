@@ -7,16 +7,17 @@
    ========================================================================== */
 
 :root {
-  --ground: #15121d;
-  --ground-lift: #1d1929;
-  --ink: #edeaf3;
-  --muted: #8e88a4;
+  /* Warm graphite: neutrals carry no hue of their own, so amber is the only color */
+  --ground: #131210;
+  --ground-lift: #1b1a17;
+  --ink: #ece9e2;
+  --muted: #9a958a;
   --added: #e8a33d;
-  --rule: #2b2638;
+  --rule: #2a2824;
 
   --added-wash: rgba(232, 163, 61, 0.055);
   --added-dim: rgba(232, 163, 61, 0.45);
-  --faint: #4a4560;
+  --faint: #4d4a43;
 
   --gutter: 4.25rem;
   --body-pad: 1.5rem;
