@@ -313,11 +313,6 @@ img {
   align-items: start;
 }
 
-/* No photo set: the text takes the full width */
-.about-grid-solo {
-  grid-template-columns: 1fr;
-}
-
 .about-photo {
   width: 6.5rem;
   height: 6.5rem;

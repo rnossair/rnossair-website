@@ -22,7 +22,8 @@ export default function AboutSection() {
       <RowSpace />
 
       <Row>
-        <StaggerItem className={profile.photo ? "about-grid" : "about-grid about-grid-solo"}>
+        {/* Without a photo there is no second column, so skip the grid */}
+        <StaggerItem className={profile.photo ? "about-grid" : undefined}>
           {profile.photo ? (
             <div className="about-photo">
               <Image src={profile.photo} alt={profile.name} width={130} height={130} />
