@@ -1,5 +1,6 @@
 import { skills } from "@/data/site";
 import Row, { RowSpace } from "@/components/Row";
+import Stagger, { StaggerItem } from "@/components/motion/Stagger";
 
 const groups = [
   { key: "languages", label: "languages" },
@@ -9,9 +10,9 @@ const groups = [
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="section">
+    <Stagger as="section" id="skills" className="section">
       <Row>
-        <p className="section-label">toolkit</p>
+        <StaggerItem as="p" className="section-label">toolkit</StaggerItem>
       </Row>
 
       <RowSpace small />
@@ -19,17 +20,17 @@ export default function SkillsSection() {
       <Row>
         <div className="skills-grid">
           {groups.map((g) => (
-            <div key={g.key}>
+            <StaggerItem key={g.key}>
               <h3 className="skills-label">{g.label}</h3>
               <ul className="skills-list">
                 {skills[g.key].map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
-            </div>
+            </StaggerItem>
           ))}
         </div>
       </Row>
-    </section>
+    </Stagger>
   );
 }

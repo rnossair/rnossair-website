@@ -1,5 +1,6 @@
 import { profile } from "@/data/site";
 import Row, { RowSpace } from "@/components/Row";
+import Stagger, { StaggerItem } from "@/components/motion/Stagger";
 
 const links = [
   { label: "email", href: `mailto:${profile.email}`, value: profile.email },
@@ -14,17 +15,17 @@ const links = [
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="section">
+    <Stagger as="section" id="contact" className="section">
       <Row>
-        <p className="section-label">contact</p>
+        <StaggerItem as="p" className="section-label">contact</StaggerItem>
       </Row>
 
       <RowSpace small />
 
       <Row>
-        <h2 className="section-heading">
+        <StaggerItem as="h2" className="section-heading">
           Open to software engineering internships and collaborations.
-        </h2>
+        </StaggerItem>
       </Row>
 
       <RowSpace />
@@ -32,7 +33,7 @@ export default function ContactSection() {
       <Row>
         <dl className="contact-list">
           {links.map((l) => (
-            <div key={l.label} className="contact-item">
+            <StaggerItem key={l.label} className="contact-item">
               <dt className="contact-key">{l.label}</dt>
               <dd className="contact-val">
                 <a
@@ -44,10 +45,10 @@ export default function ContactSection() {
                   {l.value}
                 </a>
               </dd>
-            </div>
+            </StaggerItem>
           ))}
         </dl>
       </Row>
-    </section>
+    </Stagger>
   );
 }
