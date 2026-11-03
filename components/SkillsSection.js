@@ -6,6 +6,7 @@ const groups = [
   { key: "languages", label: "languages" },
   { key: "frameworks", label: "frameworks" },
   { key: "tools", label: "tools" },
+  { key: "ai", label: "ai / ml" },
 ];
 
 export default function SkillsSection() {

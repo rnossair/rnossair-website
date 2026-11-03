@@ -40,14 +40,14 @@ export const experience = [
   {
     role: "Software Engineer Intern",
     org: "DXC Technology",
-    location: "Sale, Morocco",
+    location: "Salé, Morocco",
     start: "2026-06",
-    end: null,
+    end: "2026-07",
     summary:
-      "Architecting a full-stack document management platform with AI semantic search.",
+      "Architected a full-stack document management platform with AI semantic search.",
     bullets: [
-      "Architect a document management platform with AI semantic search (pgvector + Gemini embeddings), versioned file storage on Cloudflare R2, and role-based access control.",
-      "Implemented Keycloak SSO with Authorization Code Flow, federated Google OAuth, and JWKS-based JWT verification; containerized the stack with Docker Compose including automated schema migrations.",
+      "Architected a full-stack document management platform with AI semantic search (pgvector), versioned file storage on Cloudflare R2, and role-based access control.",
+      "Implemented Keycloak SSO with Authorization Code Flow, federated Google OAuth, and JWKS-based JWT verification; containerized the full stack with Docker Compose including automated schema migrations.",
     ],
   },
   {
@@ -58,8 +58,8 @@ export const experience = [
     end: null,
     summary: "Gameplay systems in Luau across live experiences serving 1,150+ MAU.",
     bullets: [
-      "Design and implement gameplay systems in Luau across multiple live experiences, coordinating with a mid-size team through code reviews and Agile ticketing.",
       "Debug and port existing systems into new experiences, maintaining consistency across a codebase serving 1,150 MAU and 25,000+ total player visits.",
+      "Design and implement gameplay systems in Luau across multiple live experiences, coordinating with a mid-size team through code reviews and Agile ticketing.",
     ],
   },
   {
@@ -81,7 +81,7 @@ export const projects = [
     slug: "squire",
     name: "Squire",
     description:
-      "A meal-planning assistant that turns SKU-level grocery transaction data into personalized meal suggestions, with a Gemini-powered conversational planner on top.",
+      "Built at HackPrinceton Fall 2025. A meal-planning assistant that turns SKU-level grocery transaction data into personalized meal suggestions, with a Gemini-powered conversational planner on top.",
     stack: ["Next.js", "Express", "MongoDB Atlas", "Gemini API"],
     live: "https://www.mysquire.tech/",
     repo: "https://github.com/Squire-71-12/squire-app",
@@ -109,8 +109,8 @@ export const projects = [
     slug: "hiway",
     name: "HiWay",
     description:
-      "A team build at MHacks 26. A phone on the dash scores driver drowsiness in real time, warns by voice, and runs a group-chat agent over iMessage and Telegram that keeps the driver's friends and family in the loop. I built the backend and the server-side risk scoring.",
-    stack: ["TypeScript", "ElevenLabs", "Photon", "Presage", "Tiger Data"],
+      "A team build at MHacks 26: a phone on the dash that flags 1.5-second microsleeps and keeps family in the loop. I built the family agent over iMessage and Telegram, which classifies incoming texts and reads them to the driver by voice, plus the Android client and part of the vision pipeline.",
+    stack: ["Kotlin", "TypeScript", "ElevenLabs", "Photon", "Presage"],
     live: null,
     repo: "https://github.com/Dunni14/hi-way67",
     screenshot: "/images/projects/hiway.png",
@@ -123,8 +123,8 @@ export const projects = [
     slug: "alia",
     name: "A.L.I.A.",
     description:
-      "A persona-driven Discord agent that reads every message and decides for itself whether to reply. A router picks silence, a normal reply, RAG memory recall, or a quote card, and web search comes in as an MCP tool.",
-    stack: ["TypeScript", "discord.js", "pgvector", "Groq / Ollama", "MCP"],
+      "A persona-driven Discord agent that decides for itself whether to reply. An evaluation harness took its 4-class intent router from 59% to 93% accuracy on production-log cases, and LLM calls fail over across Ollama, Groq and Gemini.",
+    stack: ["TypeScript", "Node.js", "pgvector", "MCP"],
     live: null,
     repo: "https://github.com/rnossair/alia-discord-bot",
     screenshot: "/images/projects/alia.png",
@@ -137,8 +137,8 @@ export const projects = [
     slug: "provenance-guard",
     name: "Provenance Guard",
     description:
-      "An API that estimates whether text was AI-generated from GPT-2 perplexity and sentence-length burstiness, then returns a calibrated confidence label. Every call is audit-logged, and writers can appeal a classification.",
-    stack: ["Python", "Flask", "Transformers", "GPT-2", "NLTK"],
+      "A Flask API that scores text for AI authorship from GPT-2 perplexity and two other statistical signals, with an SQLite audit log, rate limiting, unit tests, and an appeal workflow for contested results.",
+    stack: ["Python", "Flask", "Transformers", "SQLite"],
     live: null,
     repo: "https://github.com/rnossair/ai201-project4-provenance-guard",
     screenshot: "/images/projects/provenance-guard.png",
@@ -171,7 +171,8 @@ export const contributions = [
 ];
 
 export const skills = {
-  languages: ["C", "Python", "Java", "Luau", "JavaScript"],
-  frameworks: ["Node.js", "Next.js", "React", "Express", "Tailwind CSS"],
-  tools: ["Linux", "Git", "MongoDB", "PostgreSQL", "Prisma", "Docker"],
+  languages: ["Python", "TypeScript", "JavaScript", "C", "Java", "Luau"],
+  frameworks: ["Node.js", "Next.js", "React", "Express", "Flask", "FastAPI", "Tailwind CSS"],
+  tools: ["Docker", "Git", "Linux", "PostgreSQL", "MongoDB", "SQLite", "Prisma", "Cloudflare R2"],
+  ai: ["RAG", "pgvector", "MCP", "Agent Loops", "LLM Evaluation", "Hugging Face Transformers", "Claude Code"],
 };
