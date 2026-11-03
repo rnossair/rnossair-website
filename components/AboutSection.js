@@ -22,10 +22,12 @@ export default function AboutSection() {
       <RowSpace />
 
       <Row>
-        <StaggerItem className="about-grid">
-          <div className="about-photo">
-            <Image src={profile.photo} alt={profile.name} width={130} height={130} />
-          </div>
+        <StaggerItem className={profile.photo ? "about-grid" : "about-grid about-grid-solo"}>
+          {profile.photo ? (
+            <div className="about-photo">
+              <Image src={profile.photo} alt={profile.name} width={130} height={130} />
+            </div>
+          ) : null}
           <div className="prose">
             {about.body.map((p) => (
               <p key={p.slice(0, 24)}>{p}</p>

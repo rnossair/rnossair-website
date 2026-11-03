@@ -6,7 +6,7 @@ export const profile = {
   github: "https://github.com/rnossair",
   linkedin: "https://www.linkedin.com/in/rayane-nossair/",
   resume: "/docs/resume.pdf",
-  photo: "/images/pfp.png",
+  photo: null, // hidden for now; "/images/pfp.png" restores it
 };
 
 // The hero diff. Removed lines are what the work used to be; added lines are
@@ -127,7 +127,7 @@ export const projects = [
     stack: ["TypeScript", "discord.js", "pgvector", "Groq / Ollama", "MCP"],
     live: null,
     repo: "https://github.com/rnossair/alia-discord-bot",
-    screenshot: null,
+    screenshot: "/images/projects/alia.png",
     commits: {
       first: { sha: "d20727e", date: "2026-07-07" },
       latest: { sha: "79006e9", date: "2026-07-08" },
@@ -141,7 +141,7 @@ export const projects = [
     stack: ["Python", "Flask", "Transformers", "GPT-2", "NLTK"],
     live: null,
     repo: "https://github.com/rnossair/ai201-project4-provenance-guard",
-    screenshot: null,
+    screenshot: "/images/projects/provenance-guard.png",
     commits: {
       first: { sha: "871b7a6", date: "2026-06-29" },
       latest: { sha: "dc07b74", date: "2026-06-30" },
