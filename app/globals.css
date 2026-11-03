@@ -487,6 +487,28 @@ img {
   }
 }
 
+.proj-shot-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1rem;
+  text-align: center;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+  letter-spacing: -0.02em;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.proj-shot-empty-note {
+  font-size: 0.68rem;
+  color: var(--faint);
+}
+
 .proj-name {
   font-family: var(--font-display), ui-sans-serif, sans-serif;
   font-weight: 700;
@@ -581,6 +603,63 @@ img {
 
 .proj-link-live:hover {
   color: var(--ink);
+}
+
+/* --------------------------------------------------------------------------
+   Contributions (under construction)
+   -------------------------------------------------------------------------- */
+
+.wip-tag {
+  margin-left: 0.6rem;
+  padding: 0.1rem 0.45rem;
+  border: 1px dashed var(--added-dim);
+  color: var(--muted);
+}
+
+.wip-note {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.pr-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pr-list > li + li {
+  margin-top: 1.25rem;
+}
+
+.pr-meta {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: -0.02em;
+  color: var(--muted);
+  margin: 0 0 0.3rem;
+}
+
+.pr-tag {
+  margin-left: 0.6rem;
+  color: var(--faint);
+}
+
+.pr-tag::before {
+  content: "[";
+}
+
+.pr-tag::after {
+  content: "]";
+}
+
+.pr-title {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.85rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  overflow-wrap: anywhere;
 }
 
 /* --------------------------------------------------------------------------

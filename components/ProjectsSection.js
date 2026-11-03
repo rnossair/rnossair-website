@@ -42,7 +42,15 @@ export default function ProjectsSection() {
                     fill
                     sizes="(max-width: 640px) 85vw, 460px"
                   />
-                ) : null}
+                ) : (
+                  // No capture: keep the 16:9 box so cards stay aligned
+                  <div className="proj-shot-empty">
+                    <span>{project.repo.replace("https://github.com/", "")}</span>
+                    <span className="proj-shot-empty-note">
+                      {project.live ? "no capture yet" : "source only"}
+                    </span>
+                  </div>
+                )}
               </Reveal>
 
               <h3 className="proj-name">{project.name}</h3>
@@ -71,14 +79,16 @@ export default function ProjectsSection() {
               </div>
 
               <div className="proj-links">
-                <a
-                  href={project.live}
-                  className="link proj-link-live"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  visit site →
-                </a>
+                {project.live ? (
+                  <a
+                    href={project.live}
+                    className="link proj-link-live"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    visit site →
+                  </a>
+                ) : null}
                 <a href={project.repo} className="link" target="_blank" rel="noreferrer">
                   read source →
                 </a>
