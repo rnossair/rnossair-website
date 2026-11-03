@@ -109,7 +109,7 @@ export const projects = [
     slug: "hiway",
     name: "HiWay",
     description:
-      "A team build at MHacks 26. A phone on the dash scores driver drowsiness in real time, warns by voice, and runs a group-chat agent that keeps the driver's friends and family in the loop. I built the backend and the server-side risk scoring.",
+      "A team build at MHacks 26. A phone on the dash scores driver drowsiness in real time, warns by voice, and runs a group-chat agent over iMessage and Telegram that keeps the driver's friends and family in the loop. I built the backend and the server-side risk scoring.",
     stack: ["TypeScript", "ElevenLabs", "Photon", "Presage", "Tiger Data"],
     live: null,
     repo: "https://github.com/Dunni14/hi-way67",
