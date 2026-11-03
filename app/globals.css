@@ -434,31 +434,57 @@ img {
    Projects
    -------------------------------------------------------------------------- */
 
-.proj-list {
+.proj-strip {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 0 -0.35rem;
+  /* Side padding keeps focus outlines on edge links from being clipped */
+  padding: 0.35rem 0.35rem 1.25rem;
+  display: grid;
+  grid-auto-flow: column;
+  /* Two cards per view; more scroll sideways and snap to a card edge */
+  grid-auto-columns: calc((100% - 2.5rem) / 2);
+  gap: 2.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 0.35rem;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--faint) transparent;
 }
 
-.proj-list > li + li {
-  margin-top: 4.5rem;
+.proj-card {
+  scroll-snap-align: start;
+  min-width: 0;
 }
 
-/* A thumbnail, not a hero image: capped well short of the body column so the
-   project name stays the entry point. Captures are 16:9, so no cropping. */
+/* Captures are 16:9, so no cropping */
 .proj-shot {
   position: relative;
   aspect-ratio: 16 / 9;
   width: 100%;
-  max-width: 30rem;
   background: var(--ground-lift);
   border: 1px solid var(--rule);
   overflow: hidden;
   margin-bottom: 1.5rem;
+  transition: border-color 300ms ease;
 }
 
 .proj-shot img {
   object-fit: cover;
+}
+
+.proj-card:hover .proj-shot {
+  border-color: var(--added-dim);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .proj-shot img {
+    transition: transform 500ms cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+
+  .proj-card:hover .proj-shot img {
+    transform: scale(1.03);
+  }
 }
 
 .proj-name {
@@ -682,8 +708,10 @@ img {
     grid-template-columns: 1fr 1fr;
   }
 
-  .proj-list > li + li {
-    margin-top: 3rem;
+  /* Next card peeks in so the strip reads as scrollable */
+  .proj-strip {
+    grid-auto-columns: 85%;
+    gap: 1.5rem;
   }
 }
 

@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { projects } from "@/data/site";
 import Row, { RowSpace } from "@/components/Row";
+import Stagger, { StaggerItem } from "@/components/motion/Stagger";
+import Reveal from "@/components/motion/Reveal";
 
 const MONTHS = [
   "jan", "feb", "mar", "apr", "may", "jun",
@@ -19,69 +21,72 @@ const orderedProjects = [...projects].sort((a, b) =>
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="section">
+    <Stagger as="section" id="projects" className="section">
       <Row>
-        <p className="section-label">projects</p>
+        <StaggerItem as="p" className="section-label">projects</StaggerItem>
       </Row>
 
       <RowSpace small />
 
-      {/* One numbered line per project */}
-      <ul className="proj-list">
-        {orderedProjects.map((project) => (
-          <Row as="li" key={project.slug}>
-            <div className="proj-shot">
-              {project.screenshot ? (
-                <Image
-                  src={project.screenshot}
-                  alt={`${project.name} interface`}
-                  fill
-                  sizes="(max-width: 760px) 100vw, 480px"
-                />
-              ) : null}
-            </div>
+      {/* One numbered line holding a sideways strip: two cards per view on
+          desktop, scrolling once there are more */}
+      <Row>
+        <ul className="proj-strip">
+          {orderedProjects.map((project) => (
+            <StaggerItem as="li" key={project.slug} className="proj-card">
+              <Reveal effect="wipe" className="proj-shot">
+                {project.screenshot ? (
+                  <Image
+                    src={project.screenshot}
+                    alt={`${project.name} interface`}
+                    fill
+                    sizes="(max-width: 640px) 85vw, 460px"
+                  />
+                ) : null}
+              </Reveal>
 
-            <h3 className="proj-name">{project.name}</h3>
-            <p className="proj-desc">{project.description}</p>
+              <h3 className="proj-name">{project.name}</h3>
+              <p className="proj-desc">{project.description}</p>
 
-            <p className="proj-stack">
-              {project.stack.map((tech, i) => (
-                <span key={tech}>
-                  {i > 0 ? <span className="proj-stack-sep">/</span> : null}
-                  {tech}
-                </span>
-              ))}
-            </p>
+              <p className="proj-stack">
+                {project.stack.map((tech, i) => (
+                  <span key={tech}>
+                    {i > 0 ? <span className="proj-stack-sep">/</span> : null}
+                    {tech}
+                  </span>
+                ))}
+              </p>
 
-            {/* The commit range as a measured span, not a corner label */}
-            <div className="ruler">
-              <div className="ruler-shas">
-                <span>{project.commits.first.sha}</span>
-                <span className="ruler-span" aria-hidden="true" />
-                <span>{project.commits.latest.sha}</span>
+              {/* The commit range as a measured span, not a corner label */}
+              <div className="ruler">
+                <div className="ruler-shas">
+                  <span>{project.commits.first.sha}</span>
+                  <Reveal as="span" effect="draw" className="ruler-span" aria-hidden="true" />
+                  <span>{project.commits.latest.sha}</span>
+                </div>
+                <div className="ruler-dates">
+                  <span>{formatCommitDate(project.commits.first.date)}</span>
+                  <span>{formatCommitDate(project.commits.latest.date)}</span>
+                </div>
               </div>
-              <div className="ruler-dates">
-                <span>{formatCommitDate(project.commits.first.date)}</span>
-                <span>{formatCommitDate(project.commits.latest.date)}</span>
-              </div>
-            </div>
 
-            <div className="proj-links">
-              <a
-                href={project.live}
-                className="link proj-link-live"
-                target="_blank"
-                rel="noreferrer"
-              >
-                visit site →
-              </a>
-              <a href={project.repo} className="link" target="_blank" rel="noreferrer">
-                read source →
-              </a>
-            </div>
-          </Row>
-        ))}
-      </ul>
-    </section>
+              <div className="proj-links">
+                <a
+                  href={project.live}
+                  className="link proj-link-live"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  visit site →
+                </a>
+                <a href={project.repo} className="link" target="_blank" rel="noreferrer">
+                  read source →
+                </a>
+              </div>
+            </StaggerItem>
+          ))}
+        </ul>
+      </Row>
+    </Stagger>
   );
 }

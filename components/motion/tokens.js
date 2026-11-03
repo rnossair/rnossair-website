@@ -25,3 +25,25 @@ export const strikeText = {
   hidden: { "--strike": 0 },
   show: { "--strike": 1, transition: { duration: 0.4, ease: "easeOut" } },
 };
+
+// One-off entrance effects for <Reveal effect="...">.
+export const effects = {
+  fade: {
+    initial: { opacity: 0, y: rise },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration, ease },
+  },
+  // Left-to-right wipe, like a hunk being added. Used on project screenshots.
+  wipe: {
+    initial: { clipPath: "inset(0 100% 0 0)" },
+    animate: { clipPath: "inset(0 0% 0 0)" },
+    transition: { duration: 0.75, ease, delay: 0.15 },
+  },
+  // A line drawing out from its left end. Used on the commit ruler.
+  draw: {
+    initial: { scaleX: 0 },
+    animate: { scaleX: 1 },
+    transition: { duration: 0.6, ease, delay: 0.35 },
+    style: { transformOrigin: "left center" },
+  },
+};
